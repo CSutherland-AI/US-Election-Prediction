@@ -24,6 +24,13 @@ For the neural network I used for loops to test a wide range of values for learn
 
 Random Forest
 
+Random forests are more robust that single decision trees. Since a random forest uses many decision trees it limits overfitting, thus reducing generalization error.
+
+This time around, for model selection I used a random search grid with kfold cross-validation. Instead of testing one parameter at a time using for loops as was done in the basic solution, different parameter combintions were simultaneously tested. This allows one to test more possible models, thus increasing the chance of finding a model that generalizes well.
+
+In deciding what ranges of parameter values to test, special attention was paid to ensuring that n_estimaors (number of trees in the forest) was sizable and that max_depth was not too large in order to increase generalizability.
+
+A random search grid was chosen over a grid search (which tests all possible parameter combinations) in order to give the algorithm a reasonable runtime. Gridsearch may have yielded more accurate parameters but the runtime would have been too long.
 
 
 
