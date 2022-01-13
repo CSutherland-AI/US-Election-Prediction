@@ -23,12 +23,6 @@ BachelorRate - percent of inhabitants with a bachelors degree (who are above som
 UnemploymentRate - percent of the labor force that is unemployed (who are above some age threshold).
 
 
-Rationale For Algorithms and Design Decisions 
-
-Decision trees carry the advantages of being able to represent non-linear relationships and use categorical data. Because the relationship between the features given and the target variable is likely non-linear and some of the features contained categorical data, I deduced that a decision tree would be useful.
-
-The neural network is a multilayer perceptron. This algorithm is capable of approxiamating any continuous function and so it is ideal for situations in which the ideal function mapping the features to the labels is a complex one. There are many features that have complex relationships when it comes to which party wins an election and so an algorithm that is capable of representing any relationship works well for this problem.
-
 Source: 
 The node features are constructed from USDA demographic data:
 
@@ -41,11 +35,22 @@ https://github.com/tonmcg/US_County_Level_Election_Results_08-16
 
 
 
+
+
+Rationale For Algorithms and Design Decisions 
+
+Decision trees carry the advantages of being able to represent non-linear relationships and use categorical data. Because the relationship between the features given and the target variable is likely non-linear and some of the features contained categorical data, I deduced that a decision tree would be useful.
+
+The neural network is a multilayer perceptron. This algorithm is capable of approxiamating any continuous function and so it is ideal for situations in which the ideal function mapping the features to the labels is a complex one. There are many features that have complex relationships when it comes to which party wins an election and so an algorithm that is capable of representing any relationship works well for this problem.
+
+
+
+
 Decision Tree
 
-I tested the accuracy of decision trees with different maximum leaf node limits and maximum depth limits. Each model was trained with the training set and its accuracy tested on the validation set.
+Tested the accuracy of decision trees with different maximum leaf node limits and maximum depth limits. Each model was trained with the training set and its accuracy tested on the validation set.
 
-Initially, I used a for loop to test the accuracy of decision trees with different depths, during this process, I found that I was given a different value for the best depth each time, and so I opted to use nested for loops to test each depth several times and take the average of all of the best depths.
+Initially, I used a for loop to test the accuracy of decision trees with different depths, during this process, it was found that a different value was given for the best depth each time, and so I opted to use nested for loops to test each depth several times and take the average of all of the best depths.
 
 Neural Network
 
