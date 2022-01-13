@@ -346,7 +346,24 @@ creativesub.to_csv("drive/MyDrive/CS_4780_Project/creativesol.csv")
 
 
 
+#Random Forest
+#Use randomizezed cross validation to conduct k fold cross validation for a large number of different parameter combinations
+#List of possible valuse to be considered for each parameter. Each iteration of randomsearchcv will use a combination of values
+#from these lists and record the accuracy using weighted accuracy function
 
+grid = {'n_estimators': [int(q) for q in np.linspace(start=100, stop=1500, num=100)],
+               'max_features': ['auto'],
+               'max_depth': [int(q) for q in (range(10,100))],             #10,100
+               'bootstrap':[True, False]}
+
+#scorer=make_scorer(sklearn.metrics.f1_score)
+from sklearn.metrics import make_scorer
+scorer = make_scorer(weighted_accuracy, greater_is_better=True)
+searcher=sklearn.model_selection.RandomizedSearchCV(estimator = forest, param_distributions = grid, n_iter = 10, cv = 5, scoring=scorer )
+searcher.fit(nntrain,nnlabels)
+
+#give best parameters
+print(searcher.best_params_)
 
 
 
