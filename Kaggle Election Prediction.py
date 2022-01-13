@@ -102,6 +102,7 @@ D_tree_A=sklearn.tree.DecisionTreeClassifier(criterion="entropy", splitter= "ran
 
 
 #Split training data into training and validation sets
+#Split the training data into a training and validation set, with 3/4 used for training and 1/4 used for validation
 
 x_train, x_val, y_train, y_val=sklearn.model_selection.train_test_split(train, labels, test_size=0.25)
 
