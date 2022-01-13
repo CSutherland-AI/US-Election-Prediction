@@ -13,20 +13,6 @@ from sklearn.metrics import  f1_score
 !kaggle competitions download -c cs-4780-final-project-county-prediction-basic
 
 
-
-"""
-
-
-
-
-
-
-
-
-
-"""
-
-
 #Used for training and validation
 
 def weighted_accuracy(pred, true):
@@ -45,8 +31,6 @@ def weighted_accuracy(pred, true):
     weighted_accuracy = ((weight_pos * num_pos_correct) 
                          + (weight_neg * num_neg_correct))/((weight_pos * num_pos) + (weight_neg * num_neg))
     return weighted_accuracy
-
-
 
 
 
@@ -80,12 +64,11 @@ train["MedianIncome"]=pd.to_numeric(train ["MedianIncome"], downcast="float")
 test["MedianIncome"]=test["MedianIncome"].str.replace(",","")
 
 test["MedianIncome"]=pd.to_numeric(test["MedianIncome"], downcast="float")
-
-
-
 print(train)
 
-#NN preprocessing
+
+
+#Neural net preprocessing
 #extra data cleaning has to be done for the neural network
 
 nntrain=train.to_numpy()
@@ -170,42 +153,26 @@ acc_dictionary={}
 for func in ['identity', 'logistic', 'tanh', 'relu']:
   net=sklearn.neural_network.MLPClassifier(activation=func)
   net.fit(xnn_train,ynn_train)
-
-  
-
   valnn_preds=net.predict(xnn_val)
-
- 
-
-  acc= weighted_accuracy(valnn_preds,ynn_val)
-
-  
+  acc= weighted_accuracy(valnn_preds,ynn_val) 
   acc=acc*100
 
   # Store dictionary of accuracies and the function that gave them
-  acc_dictionary[acc] = func
-        
+  acc_dictionary[acc] = func        
   best= acc_dictionary[max(acc_dictionary)] 
 
 print("best func is", best)
     
     
-  
-
-
-
 
 #Tune hidden layer 
 acc_dictionary={}
 for k in [10,25,50,75,100]:
-  net=sklearn.neural_network.MLPClassifier(hidden_layer_sizes=(k,))
-  
+  net=sklearn.neural_network.MLPClassifier(hidden_layer_sizes=(k,))  
   net.fit(xnn_train, ynn_train)
   valnn_preds=net.predict(xnn_val)
   acc= weighted_accuracy(valnn_preds,ynn_val)
-  print (acc)
-  
-  
+  print (acc)  
 
   # Store dictionary of accuracies and the function that gave them
   acc_dictionary[acc] = k
@@ -223,14 +190,11 @@ for m in [50,100,200,500,1000]:
     net=sklearn.neural_network.MLPClassifier(hidden_layer_sizes=50 ,activation='relu', max_iter=m)
     net.fit(xnn_train, ynn_train)
     valnn_preds=net.predict(xnn_val)
-    acc= weighted_accuracy(valnn_preds,ynn_val)
-    
+    acc= weighted_accuracy(valnn_preds,ynn_val)   
 
     # Store dictionary of accuracies and the max_iter value that gave them
-    acc_dictionary[acc] = m
-          
+    acc_dictionary[acc] = m          
 best= acc_dictionary[max(acc_dictionary)] 
-
 print("best max_iter is", m)
 
 #Tune alpha
@@ -279,7 +243,6 @@ print("best learning rate is", best)
 net=sklearn.neural_network.MLPClassifier(hidden_layer_sizes=(100) ,activation='relu', max_iter=1000, alpha=0.01, learning_rate_init=0.002)
 net.fit(xnn_train, ynn_train)
 nnpreds=net.predict(nntest)
-
 nnsub= pd.DataFrame({"FIPS": test.index ,
              "Result": nnpreds 
              })
@@ -296,9 +259,7 @@ D_tree_final=sklearn.tree.DecisionTreeClassifier(criterion="entropy", splitter= 
 D_tree_final.fit(x_train,y_train)
 preds=D_tree_final.predict(x_val)
 val_accy=weighted_accuracy(preds,y_val)
-
 submissionpreds=D_tree_final.predict(test)
-
 submission= pd.DataFrame({"FIPS": test.index ,
              "Result": submissionpreds 
              })
@@ -308,7 +269,7 @@ submission.to_csv( "drive/MyDrive/CS_4780_Project/Basic_Soln1.2.csv")
 
 
 
-####IMPROVED SOLUTION######
+#-----IMPROVED SOLUTION-----#
 
 #Random Forest
 #Use randomizezed cross validation to conduct k fold cross validation for a large number of different parameter combinations
@@ -346,24 +307,7 @@ creativesub.to_csv("drive/MyDrive/CS_4780_Project/creativesol.csv")
 
 
 
-#Random Forest
-#Use randomizezed cross validation to conduct k fold cross validation for a large number of different parameter combinations
-#List of possible valuse to be considered for each parameter. Each iteration of randomsearchcv will use a combination of values
-#from these lists and record the accuracy using weighted accuracy function
 
-grid = {'n_estimators': [int(q) for q in np.linspace(start=100, stop=1500, num=100)],
-               'max_features': ['auto'],
-               'max_depth': [int(q) for q in (range(10,100))],             #10,100
-               'bootstrap':[True, False]}
-
-#scorer=make_scorer(sklearn.metrics.f1_score)
-from sklearn.metrics import make_scorer
-scorer = make_scorer(weighted_accuracy, greater_is_better=True)
-searcher=sklearn.model_selection.RandomizedSearchCV(estimator = forest, param_distributions = grid, n_iter = 10, cv = 5, scoring=scorer )
-searcher.fit(nntrain,nnlabels)
-
-#give best parameters
-print(searcher.best_params_)
 
 
 
