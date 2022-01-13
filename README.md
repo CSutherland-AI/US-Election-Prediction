@@ -5,13 +5,21 @@ Features
 
 FIPS - Federal Information Processing Series, are numeric codes assigned by the National Institute of Standards and Technology (NIST). US counties are identified by a 3-digit number.
 County - the name of the county, given by county_name, state_initials.
+
 DEM - number of democratic votes recieved.
+
 GOP - number of republican votes recieved.
+
 MedianIncome - median household income.
+
 MigraRate - the migration rate as the difference between the number of persons entering and leaving a country during the year per 1,000 persons (based on midyear population).
+
 BirthRate - frequency of live births in a given population as live births per 1,000 inhabitants.
+
 DeathRate - the ratio of deaths to the population of a particular area or during a particular period of time, calculated as the number of deaths per one thousand people per year.
+
 BachelorRate - percent of inhabitants with a bachelors degree (who are above some age threshold).
+
 UnemploymentRate - percent of the labor force that is unemployed (who are above some age threshold).
 
 
