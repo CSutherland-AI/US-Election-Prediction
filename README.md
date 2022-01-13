@@ -19,7 +19,16 @@ Initially, I used a for loop to test the accuracy of decision trees with differe
 
 Neural Network
 
-For the neural network I used for loops to test a wide range of values for learning rate, alpha, maximum number of iterations, activation function and hidden layer size. Interestingly changes to these hyperparameters had very little effect on the prediction accuracy.
+For the neural network I used for loops to test a wide range of values for learning rate, alpha, maximum number of iterations, activation function and hidden layer size. Interestingly changes to these hyperparameters had very little effect on the prediction accuracy.Changing the number of hidden layers and size of each layer also had very little effect on predictive accuracy.
 
-Changing the number of hidden layers and size of each layer also had very little effect on predictive accuracy.
 
+Random Forest
+
+
+
+
+
+
+Possible improvements:
+Feature engineering
+-Using the existing features, new, more informative features could have been created
