@@ -57,6 +57,7 @@ train=train.drop('GOP', axis=1)
 #----------------
 
 #Converting income numbers to floats
+
 train["MedianIncome"]=train["MedianIncome"].str.replace(",","")
 
 train["MedianIncome"]=pd.to_numeric(train ["MedianIncome"], downcast="float")
@@ -69,7 +70,7 @@ print(train)
 
 
 #Neural net preprocessing
-#extra data cleaning has to be done for the neural network
+#extra data cleaning has to be done for the neural network, data has to be converted to numpy arrays
 
 nntrain=train.to_numpy()
 nnlabels=labels.to_numpy()
